@@ -1,0 +1,15 @@
+#
+# Keep Arduino tick frequency requirements satisfied
+#
+CONFIG_FREERTOS_HZ=1000
+
+# Enable Zigbee stack for esp-zigbee-lib headers & libs (spinel/UART radio)
+CONFIG_ZB_ENABLED=y
+CONFIG_ZB_ZCZR=y
+CONFIG_ZB_RADIO_SPINEL_UART=y
+
+# Ensure OpenThread component (needed for Zigbee RCP) is built
+CONFIG_OPENTHREAD_ENABLED=y
+CONFIG_OPENTHREAD_RADIO_SPINEL_UART=y
+CONFIG_OPENTHREAD_FTD=y
+
