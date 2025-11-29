@@ -1,8 +1,11 @@
-# Zigbee Water Management – User Guide
+# Zigbee Water Management – Installer & Developer Guide
 
-This guide walks through everything an installer or field engineer needs to
+This guide walks through everything an **installer or developer** needs to
 prepare, flash, configure, and maintain the three-node Zigbee water management
 system that ships in this repository.
+
+> 📘 **Looking for the End-User Manual?** See [`END_USER_MANUAL.md`](END_USER_MANUAL.md) for
+> non-technical instructions on daily use, LED meanings, and basic troubleshooting.
 
 ---
 

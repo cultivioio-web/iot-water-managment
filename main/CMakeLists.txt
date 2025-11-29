@@ -19,21 +19,34 @@ if(NOT DEFINED ZIGBEE_SHARED_DIR)
         "Please sync the shared firmware next to this project (recommended: ../zigbee_water_management).")
 endif()
 
-set(ZIGBEE_SHARED_SRCS
-    "${ZIGBEE_SHARED_DIR}/zigbee_water_management.ino"
-    "${ZIGBEE_SHARED_DIR}/zigbee_config.cpp"
-)
-
-if(NOT CMAKE_SCRIPT_MODE_FILE)
-    set_source_files_properties(${ZIGBEE_SHARED_SRCS} PROPERTIES LANGUAGE CXX)
+# Check if target supports native Zigbee (802.15.4 hardware)
+if(CONFIG_IDF_TARGET_ESP32C6 OR CONFIG_IDF_TARGET_ESP32H2)
+    set(ZIGBEE_SUPPORTED TRUE)
+    set(EXTRA_SRCS "${ZIGBEE_SHARED_DIR}/zigbee_config.cpp")
+    set(EXTRA_REQUIRES esp-zigbee-lib)
+    message(STATUS "=== Building with ZIGBEE support for ${CONFIG_IDF_TARGET} ===")
+else()
+    set(ZIGBEE_SUPPORTED FALSE)
+    set(EXTRA_SRCS "")
+    set(EXTRA_REQUIRES "")
+    message(STATUS "=== Building WIFI-ONLY mode for ${CONFIG_IDF_TARGET} (no native Zigbee) ===")
 endif()
 
 idf_component_register(
-    SRCS "main.cpp" ${ZIGBEE_SHARED_SRCS}
+    SRCS 
+        "main.cpp"
+        "zigbee_ino_wrapper.cpp"
+        ${EXTRA_SRCS}
     INCLUDE_DIRS
         "${ZIGBEE_SHARED_DIR}"
-    REQUIRES arduino-esp32 esp-zigbee-lib
+    REQUIRES arduino-esp32 ${EXTRA_REQUIRES}
 )
 
 target_compile_features(${COMPONENT_LIB} PUBLIC cxx_std_17)
 
+# Define macro for conditional compilation in C/C++ code
+if(ZIGBEE_SUPPORTED)
+    target_compile_definitions(${COMPONENT_LIB} PUBLIC ZIGBEE_ENABLED=1)
+else()
+    target_compile_definitions(${COMPONENT_LIB} PUBLIC ZIGBEE_ENABLED=0)
+endif()
