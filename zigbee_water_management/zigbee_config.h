@@ -55,7 +55,7 @@ enum ZigbeeMessageType {
 #define WATER_SENSOR_ENDPOINT_ID 0x01
 #define WATER_CONTROLLER_ENDPOINT_ID 0x02
 #define WATER_BACKUP_ENDPOINT_ID 0x03
-#define WATER_SYSTEM_ENDPOINT WATER_SENSOR_ENDPOINT_ID
+// WATER_SYSTEM_ENDPOINT is defined in config.h
 
 // Custom cluster for water management - returns attribute list for custom cluster
 esp_zb_attribute_list_t* create_water_management_attributes();

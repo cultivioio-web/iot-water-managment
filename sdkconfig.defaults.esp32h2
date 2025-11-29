@@ -1,0 +1,13 @@
+#
+# ESP32-H2 specific configuration (with Zigbee support)
+#
+CONFIG_FREERTOS_HZ=1000
+
+# Enable Zigbee stack (native 802.15.4 radio)
+CONFIG_ZB_ENABLED=y
+CONFIG_ZB_ZCZR=y
+CONFIG_ZB_RADIO_NATIVE=y
+
+# OpenThread for Thread/Zigbee
+CONFIG_OPENTHREAD_ENABLED=y
+

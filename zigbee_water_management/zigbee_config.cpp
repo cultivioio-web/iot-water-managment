@@ -8,6 +8,7 @@
 #include <esp_zigbee_cluster.h>
 #include <esp_zigbee_attribute.h>
 #include <zcl/esp_zigbee_zcl_command.h>
+#include <cstring>
 #include "config.h"
 
 // Global variables for Zigbee communication
