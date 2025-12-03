@@ -18,6 +18,7 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
+#include "esp_task_wdt.h"
 
 #include "esp_zigbee_core.h"
 #include "ha/esp_zigbee_ha_standard.h"
@@ -202,7 +203,13 @@ static void zigbee_task(void *pvParameters)
 
 static void status_task(void *pvParameters)
 {
+    // Add this task to watchdog monitoring
+    esp_task_wdt_add(NULL);
+    
     while (1) {
+        // Feed watchdog
+        esp_task_wdt_reset();
+        
         g_uptime_seconds++;
         
         if (g_zigbee_connected) {
@@ -244,13 +251,33 @@ void app_main(void)
     ESP_LOGI(TAG, "  %s", CULTIVIO_COPYRIGHT);
     ESP_LOGI(TAG, "========================================");
 
-    // Initialize NVS
+    // Initialize NVS (with error recovery like other nodes)
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
+        ESP_LOGW(TAG, "NVS needs erasing, erasing...");
+        ret = nvs_flash_erase();
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "NVS erase failed: %s", esp_err_to_name(ret));
+        }
         ret = nvs_flash_init();
     }
-    ESP_ERROR_CHECK(ret);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "NVS init failed: %s", esp_err_to_name(ret));
+    }
+    
+    // Configure watchdog timer (30 seconds) - same as other nodes
+    ESP_LOGI(TAG, "Configuring watchdog timer...");
+    esp_task_wdt_config_t wdt_config = {
+        .timeout_ms = 30000,
+        .trigger_panic = true,
+    };
+    ret = esp_task_wdt_init(&wdt_config);
+    if (ret == ESP_OK) {
+        esp_task_wdt_add(NULL);
+        ESP_LOGI(TAG, "Watchdog timer configured: 30 seconds");
+    } else {
+        ESP_LOGW(TAG, "Failed to init watchdog: %s", esp_err_to_name(ret));
+    }
 
     // Initialize LEDs
     led_init();
