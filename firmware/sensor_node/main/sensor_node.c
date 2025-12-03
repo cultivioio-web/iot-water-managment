@@ -41,6 +41,15 @@ static const char *TAG = "SENSOR_NODE";
 #define ULTRASONIC_TIMEOUT_US   30000
 #define NUM_SAMPLES             5
 #define SAMPLE_DELAY_MS         50
+#define SENSOR_TOLERANCE_CM     50      // Allow readings slightly beyond tank height
+
+// Timing constants
+#define DEBOUNCE_DELAY_MS       50      // Button debounce delay
+#define BUTTON_CHECK_INTERVAL_MS 100    // Button press check interval
+#define LED_BLINK_SHORT_MS      50      // Short LED blink
+#define LED_BLINK_MEDIUM_MS     100     // Medium LED blink
+#define LED_BLINK_LONG_MS       200     // Long LED blink
+#define PROVISIONING_HOLD_COUNT 30      // 3 seconds at 100ms intervals
 
 // Zigbee configuration
 #define SENSOR_ENDPOINT         1
@@ -177,7 +186,7 @@ static void measure_water_level(void)
 
     for (int i = 0; i < NUM_SAMPLES; i++) {
         float distance = measure_distance_cm();
-        if (distance > 0 && distance < tank_height + 50) {
+        if (distance > 0 && distance < tank_height + SENSOR_TOLERANCE_CM) {
             total_distance += distance;
             valid_samples++;
         }
@@ -488,14 +497,14 @@ static bool check_provisioning_button(void)
     // Check if button is pressed during boot (held for 3 seconds)
     if (gpio_get_level(BUTTON_PIN) == 0) {
         // Debounce delay
-        vTaskDelay(pdMS_TO_TICKS(50));
+        vTaskDelay(pdMS_TO_TICKS(DEBOUNCE_DELAY_MS));
         
         // Re-check after debounce
         if (gpio_get_level(BUTTON_PIN) == 0) {
             ESP_LOGI(TAG, "Button pressed, checking for provisioning mode...");
             int count = 0;
-            while (gpio_get_level(BUTTON_PIN) == 0 && count < 30) {
-                vTaskDelay(pdMS_TO_TICKS(100));
+            while (gpio_get_level(BUTTON_PIN) == 0 && count < PROVISIONING_HOLD_COUNT) {
+                vTaskDelay(pdMS_TO_TICKS(BUTTON_CHECK_INTERVAL_MS));
                 count++;
                 if (count % 5 == 0) {
                     gpio_set_level(LED_PROV_PIN, !gpio_get_level(LED_PROV_PIN));
@@ -503,7 +512,7 @@ static bool check_provisioning_button(void)
             }
             gpio_set_level(LED_PROV_PIN, 0);
             
-            if (count >= 30) {
+            if (count >= PROVISIONING_HOLD_COUNT) {
                 return true;  // Enter provisioning mode
             }
         }

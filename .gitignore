@@ -1,28 +1,82 @@
+# ============================================
+# Cultivio AquaSense - .gitignore
+# ============================================
 
 # ESP-IDF build outputs
-build/
+**/build/
 cmake-build*/
-
-# Generated configs & lockfiles
 sdkconfig
 sdkconfig.old
 
 # Component manager downloads (recreated via idf.py)
-managed_components/
+**/managed_components/
+
+# Dependencies lockfiles (regenerated)
+**/dependencies.lock
 
 # Tool/IDE clutter
 .vscode/
 .idea/
 *.code-workspace
+.cursor/
 
-# Common temporary files
+# Python
 *.pyc
 *.pyo
 *.pyd
+__pycache__/
+*.egg-info/
+.env
+venv/
+
+# Node.js
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+
+# Common temporary files
 *.log
 *.tmp
 *.swp
 *.swo
+*.bak
+*~
+
+# OS files
 .DS_Store
 Thumbs.db
+Desktop.ini
 
+# Build artifacts
+*.o
+*.a
+*.so
+*.exe
+*.bin
+*.elf
+*.map
+
+# KiCad backup files
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+fp-info-cache
+
+# 3D printing temp files
+*.gcode
+
+# Documentation build
+docs/_build/
+*.pdf.tmp
+
+# Test outputs
+coverage/
+.coverage
+test-results/
+
+# Secrets (never commit!)
+*.pem
+*.key
+secrets.json
+.env.local
+.env.production

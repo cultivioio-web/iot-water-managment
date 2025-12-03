@@ -39,6 +39,13 @@ static const char *TAG = "CONTROLLER";
 // Timing
 #define SENSOR_TIMEOUT_MS       30000   // Sensor offline after 30 seconds
 #define STATUS_UPDATE_MS        1000    // Status check interval
+#define DEBOUNCE_DELAY_MS       50      // Button debounce delay
+#define BUTTON_CHECK_INTERVAL_MS 100    // Button press check interval
+#define LED_BLINK_SHORT_MS      50      // Short LED blink
+#define LED_BLINK_MEDIUM_MS     100     // Medium LED blink
+#define LED_BLINK_LONG_MS       200     // Long LED blink
+#define PROVISIONING_HOLD_COUNT 30      // 3 seconds at 100ms intervals
+#define MAX_PUMP_TIMEOUT_SEC    7200    // 2 hour safety limit
 
 // Zigbee configuration
 #define CONTROLLER_ENDPOINT     1
@@ -58,7 +65,7 @@ static device_config_t g_config;
 static uint8_t  g_water_level_percent = 0;
 static uint16_t g_water_level_cm = 0;
 static uint8_t  g_sensor_status = 0xFF;  // FIX: BUG #13 - Removed unused attribute, will be updated
-static uint32_t g_last_sensor_update = 0;
+static int64_t  g_last_sensor_update_us = 0;  // FIX: Use 64-bit microseconds to avoid 49-day overflow
 
 // Signal strength tracking
 static int8_t   g_last_rssi = -100;
@@ -151,7 +158,7 @@ static void pump_on(void)
     if (!g_pump_running) {
         gpio_set_level(PUMP_RELAY_PIN, 1);
         g_pump_running = true;
-        g_pump_start_time = xTaskGetTickCount() * portTICK_PERIOD_MS / 1000;
+        g_pump_start_time = esp_timer_get_time() / 1000000;  // FIX: Use esp_timer for consistency
         g_pump_state_attr = 1;
         led_set_pump(true);
         ESP_LOGI(TAG, ">>> PUMP ON <<< Water level: %d%%", g_water_level_percent);
@@ -174,7 +181,8 @@ static void pump_off(void)
         g_pump_state_attr = 0;
         led_set_pump(false);
         
-        uint32_t runtime = (xTaskGetTickCount() * portTICK_PERIOD_MS / 1000) - g_pump_start_time;
+        // FIX: Use esp_timer for consistent time calculation
+        uint32_t runtime = (uint32_t)(esp_timer_get_time() / 1000000) - g_pump_start_time;
         ESP_LOGI(TAG, ">>> PUMP OFF <<< Runtime: %lu seconds", runtime);
     }
 }
@@ -211,10 +219,13 @@ static void manual_pump_cmd_handler(const manual_pump_cmd_t *cmd)
 
 static void pump_control_logic(void)
 {
-    uint32_t now = xTaskGetTickCount() * portTICK_PERIOD_MS;
-    // FIX: BUG #8 - Use esp_timer for manual override time comparisons
-    uint32_t now_sec = esp_timer_get_time() / 1000000;
-    bool sensor_online = (now - g_last_sensor_update) < SENSOR_TIMEOUT_MS;
+    // FIX: Use esp_timer consistently for all time comparisons (avoids 49-day overflow)
+    int64_t now_us = esp_timer_get_time();
+    uint32_t now_sec = (uint32_t)(now_us / 1000000);
+    
+    // Sensor timeout check using 64-bit time (no overflow)
+    int64_t sensor_elapsed_ms = (now_us - g_last_sensor_update_us) / 1000;
+    bool sensor_online = sensor_elapsed_ms < SENSOR_TIMEOUT_MS && g_last_sensor_update_us > 0;
     
     // Get thresholds from config
     uint8_t pump_on_threshold = g_config.pump_on_threshold > 0 ? g_config.pump_on_threshold : 20;
@@ -224,10 +235,10 @@ static void pump_control_logic(void)
     uint32_t pump_timeout_sec = g_config.pump_timeout_minutes > 0 ? 
                                 ((uint32_t)g_config.pump_timeout_minutes * 60) : 3600;
     
-    // Safety limit: Max 2 hours (7200 seconds)
-    if (pump_timeout_sec > 7200) {
+    // Safety limit: Max 2 hours
+    if (pump_timeout_sec > MAX_PUMP_TIMEOUT_SEC) {
         ESP_LOGW(TAG, "Pump timeout capped at 2 hours for safety (was %lu)", pump_timeout_sec);
-        pump_timeout_sec = 7200;
+        pump_timeout_sec = MAX_PUMP_TIMEOUT_SEC;
     }
     
     // ========== MANUAL OVERRIDE MODE ==========
@@ -345,7 +356,7 @@ static esp_err_t zb_action_handler(esp_zb_core_action_callback_id_t callback_id,
             if (msg->info.cluster == CLUSTER_WATER_LEVEL) {
                 if (msg->attribute.id == ATTR_WATER_LEVEL_PCT) {
                     g_water_level_percent = *(uint8_t *)msg->attribute.data.value;
-                    g_last_sensor_update = xTaskGetTickCount() * portTICK_PERIOD_MS;
+                    g_last_sensor_update_us = esp_timer_get_time();  // FIX: Use 64-bit time
                     ESP_LOGI(TAG, "Received water level: %d%%", g_water_level_percent);
                 }
                 else if (msg->attribute.id == ATTR_WATER_LEVEL_CM) {
@@ -365,9 +376,9 @@ static esp_err_t zb_action_handler(esp_zb_core_action_callback_id_t callback_id,
             if (msg->cluster == CLUSTER_WATER_LEVEL) {
                 if (msg->attribute.id == ATTR_WATER_LEVEL_PCT) {
                     g_water_level_percent = *(uint8_t *)msg->attribute.data.value;
-                    g_last_sensor_update = xTaskGetTickCount() * portTICK_PERIOD_MS;
+                    g_last_sensor_update_us = esp_timer_get_time();  // FIX: Use 64-bit time
                     ESP_LOGI(TAG, "Report - Water: %d%%", g_water_level_percent);
-                    led_blink(LED_STATUS_PIN, 1, 50);
+                    led_blink(LED_STATUS_PIN, 1, LED_BLINK_SHORT_MS);
                 }
                 // FIX: BUG #13 - Update sensor status from Zigbee reports
                 else if (msg->attribute.id == ATTR_SENSOR_STATUS) {
@@ -608,14 +619,14 @@ static bool check_provisioning_button(void)
     // FIX: BUG #11 - Add debounce delay before checking button
     if (gpio_get_level(BUTTON_PIN) == 0) {
         // Debounce delay
-        vTaskDelay(pdMS_TO_TICKS(50));
+        vTaskDelay(pdMS_TO_TICKS(DEBOUNCE_DELAY_MS));
         
         // Re-check after debounce
         if (gpio_get_level(BUTTON_PIN) == 0) {
             ESP_LOGI(TAG, "Button pressed...");
             int count = 0;
-            while (gpio_get_level(BUTTON_PIN) == 0 && count < 30) {
-                vTaskDelay(pdMS_TO_TICKS(100));
+            while (gpio_get_level(BUTTON_PIN) == 0 && count < PROVISIONING_HOLD_COUNT) {
+                vTaskDelay(pdMS_TO_TICKS(BUTTON_CHECK_INTERVAL_MS));
                 count++;
                 if (count % 5 == 0) {
                     gpio_set_level(LED_STATUS_PIN, !gpio_get_level(LED_STATUS_PIN));
@@ -623,7 +634,7 @@ static bool check_provisioning_button(void)
             }
             gpio_set_level(LED_STATUS_PIN, 0);
             
-            if (count >= 30) {
+            if (count >= PROVISIONING_HOLD_COUNT) {
                 return true;
             }
         }

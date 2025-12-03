@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2025-12-03
+
+### Code Review Fixes
+
+Addressed edge cases and code quality issues from code review.
+
+### Fixed
+
+- **49-Day Timer Overflow (Complete Fix)** (FIX #14)
+  - Sensor timeout now uses `esp_timer_get_time()` with `int64_t`
+  - Changed `g_last_sensor_update` to `g_last_sensor_update_us` (64-bit)
+  - Pump start/stop time now consistently uses `esp_timer`
+  - All time comparisons use consistent time base
+
+- **Magic Numbers Replaced** (Code Quality)
+  - Added named constants: `DEBOUNCE_DELAY_MS`, `BUTTON_CHECK_INTERVAL_MS`
+  - Added `LED_BLINK_SHORT_MS`, `LED_BLINK_MEDIUM_MS`, `LED_BLINK_LONG_MS`
+  - Added `PROVISIONING_HOLD_COUNT`, `MAX_PUMP_TIMEOUT_SEC`
+  - Added `SENSOR_TOLERANCE_CM` for ultrasonic readings
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `controller_node/main/controller_node.c` | 64-bit timer, named constants |
+| `sensor_node/main/sensor_node.c` | Named constants, sensor tolerance |
+
+---
+
 ## [1.0.0] - 2025-12-03
 
 ### 🎉 Production Ready Release
