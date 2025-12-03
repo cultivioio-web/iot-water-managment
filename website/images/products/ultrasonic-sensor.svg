@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Ultrasonic Sensor (JSN-SR04T) Illustration -->
+  <defs>
+    <linearGradient id="probeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#374151"/>
+      <stop offset="100%" style="stop-color:#1f2937"/>
+    </linearGradient>
+    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4" stop-opacity="0.3"/>
+      <stop offset="100%" style="stop-color:#0891b2" stop-opacity="0.6"/>
+    </linearGradient>
+    <filter id="shadowSensor" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Control Box -->
+  <rect x="30" y="20" width="80" height="50" rx="4" fill="#1e293b" filter="url(#shadowSensor)"/>
+  <text x="70" y="40" font-size="7" fill="#94a3b8" text-anchor="middle">JSN-SR04T</text>
+  <text x="70" y="52" font-size="5" fill="#64748b" text-anchor="middle">Controller</text>
+  
+  <!-- Wires from control box -->
+  <path d="M70 70 L70 90 Q70 100 80 100 L120 100" stroke="#ef4444" stroke-width="2" fill="none"/>
+  <path d="M65 70 L65 95 Q65 105 75 105 L120 105" stroke="#000000" stroke-width="2" fill="none"/>
+  <path d="M75 70 L75 85 Q75 95 85 95 L120 95" stroke="#fbbf24" stroke-width="2" fill="none"/>
+  <path d="M60 70 L60 100 Q60 110 70 110 L120 110" stroke="#22c55e" stroke-width="2" fill="none"/>
+  
+  <!-- Waterproof Probe -->
+  <g transform="translate(120, 70)">
+    <!-- Probe body -->
+    <ellipse cx="25" cy="35" rx="25" ry="8" fill="url(#probeGradient)" filter="url(#shadowSensor)"/>
+    <rect x="0" y="0" width="50" height="35" rx="4" fill="url(#probeGradient)"/>
+    
+    <!-- Ultrasonic transducer -->
+    <circle cx="25" cy="40" r="15" fill="#4b5563"/>
+    <circle cx="25" cy="40" r="10" fill="#6b7280"/>
+    <circle cx="25" cy="40" r="5" fill="#9ca3af"/>
+    
+    <!-- Cable entry -->
+    <rect x="15" y="-10" width="20" height="15" rx="3" fill="#374151"/>
+  </g>
+  
+  <!-- Sound waves -->
+  <g stroke="#06b6d4" stroke-width="1.5" fill="none" opacity="0.5">
+    <path d="M145 120 Q155 130 145 140"/>
+    <path d="M145 115 Q165 130 145 145"/>
+    <path d="M145 110 Q175 130 145 150"/>
+  </g>
+  
+  <!-- Water surface indication -->
+  <path d="M120 160 Q140 155 160 160 Q180 165 200 160" stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.6"/>
+  
+  <!-- Labels -->
+  <text x="100" y="185" font-size="10" font-weight="bold" fill="#1e293b" text-anchor="middle">Ultrasonic Sensor</text>
+  <text x="100" y="198" font-size="8" fill="#64748b" text-anchor="middle">Waterproof IP67</text>
+  
+  <!-- Wire color legend -->
+  <g transform="translate(5, 130)" font-size="6" fill="#64748b">
+    <circle cx="5" cy="5" r="3" fill="#ef4444"/><text x="12" y="8">VCC</text>
+    <circle cx="5" cy="18" r="3" fill="#fbbf24"/><text x="12" y="21">TRIG</text>
+    <circle cx="5" cy="31" r="3" fill="#22c55e"/><text x="12" y="34">ECHO</text>
+    <circle cx="5" cy="44" r="3" fill="#000000"/><text x="12" y="47">GND</text>
+  </g>
+</svg>
+

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200">
+  <!-- Router Node Product Illustration (Compact) -->
+  <defs>
+    <linearGradient id="caseGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="pcbGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#047857"/>
+    </linearGradient>
+    <filter id="shadow3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Enclosure Body (smaller) -->
+  <rect x="30" y="40" width="100" height="70" rx="6" fill="url(#caseGradient3)" filter="url(#shadow3)"/>
+  
+  <!-- Top lid line -->
+  <line x1="30" y1="60" x2="130" y2="60" stroke="#cbd5e1" stroke-width="1"/>
+  
+  <!-- PCB visible -->
+  <rect x="40" y="68" width="80" height="35" rx="2" fill="url(#pcbGradient3)" opacity="0.8"/>
+  
+  <!-- ESP32 chip -->
+  <rect x="55" y="75" width="25" height="15" rx="2" fill="#1e293b"/>
+  <text x="67" y="85" font-size="4" fill="#94a3b8" text-anchor="middle">ESP32</text>
+  
+  <!-- Status LEDs -->
+  <circle cx="50" cy="95" r="3" fill="#22c55e"/>
+  <circle cx="60" cy="95" r="3" fill="#fbbf24"/>
+  
+  <!-- Signal strength bars -->
+  <g transform="translate(95, 75)">
+    <rect x="0" y="12" width="4" height="8" fill="#06b6d4"/>
+    <rect x="6" y="8" width="4" height="12" fill="#06b6d4"/>
+    <rect x="12" y="4" width="4" height="16" fill="#06b6d4"/>
+    <rect x="18" y="0" width="4" height="20" fill="#06b6d4" opacity="0.4"/>
+  </g>
+  
+  <!-- USB-C Port -->
+  <rect x="65" y="105" width="30" height="6" rx="2" fill="#374151"/>
+  
+  <!-- Label -->
+  <text x="80" y="135" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">Router Node</text>
+  <text x="80" y="148" font-size="8" fill="#64748b" text-anchor="middle">Range Extender</text>
+  
+  <!-- Cultivio branding -->
+  <text x="80" y="52" font-size="7" font-weight="bold" fill="#06b6d4" text-anchor="middle">CULTIVIO</text>
+  
+  <!-- Wireless waves -->
+  <g stroke="#06b6d4" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M80 25 Q90 20 80 15"/>
+    <path d="M80 25 Q95 17 80 8"/>
+    <path d="M80 25 Q70 20 80 15"/>
+    <path d="M80 25 Q65 17 80 8"/>
+  </g>
+</svg>
+

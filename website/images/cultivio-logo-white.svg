@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- White version for dark backgrounds -->
+  
+  <!-- Logo Icon - Water Drop with Leaf -->
+  <g transform="translate(20, 10)">
+    <!-- Water Drop -->
+    <path d="M50 10 C50 10 20 50 20 70 C20 90 33 100 50 100 C67 100 80 90 80 70 C80 50 50 10 50 10 Z" 
+          fill="white" opacity="0.95"/>
+    <!-- Leaf inside -->
+    <path d="M45 45 Q55 55 50 70 Q60 60 70 55 Q55 50 45 45" 
+          fill="#06b6d4" opacity="0.9"/>
+    <!-- Water waves -->
+    <path d="M30 75 Q40 70 50 75 Q60 80 70 75" 
+          stroke="#1e3a5f" stroke-width="2" fill="none" opacity="0.6"/>
+  </g>
+  
+  <!-- Company Name -->
+  <text x="110" y="75" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white">
+    Cultivio
+  </text>
+  
+  <!-- Tagline -->
+  <text x="112" y="100" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.7)" letter-spacing="2">
+    SMART WATER MANAGEMENT
+  </text>
+</svg>
+

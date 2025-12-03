@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Step 4: Enjoy Auto Control -->
+  <defs>
+    <linearGradient id="stepGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Step number -->
+  <circle cx="30" cy="30" r="20" fill="url(#stepGrad4)"/>
+  <text x="30" y="36" font-size="18" font-weight="bold" fill="white" text-anchor="middle">4</text>
+  
+  <!-- Happy home illustration -->
+  <path d="M100 50 L50 90 L50 140 L150 140 L150 90 Z" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  
+  <!-- Roof -->
+  <path d="M100 50 L45 92 M100 50 L155 92" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Door -->
+  <rect x="85" y="105" width="30" height="35" rx="2" fill="#06b6d4"/>
+  <circle cx="108" cy="125" r="3" fill="#fbbf24"/>
+  
+  <!-- Window with water drop -->
+  <rect x="60" y="100" width="20" height="20" rx="2" fill="#bfdbfe"/>
+  <path d="M70 105 C70 105 65 112 65 116 C65 120 67 122 70 122 C73 122 75 120 75 116 C75 112 70 105 70 105" fill="#06b6d4"/>
+  
+  <!-- Checkmarks floating -->
+  <g fill="url(#stepGrad4)">
+    <path d="M130 70 L135 75 L145 65" stroke="url(#stepGrad4)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M140 90 L143 93 L150 86" stroke="url(#stepGrad4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Label -->
+  <text x="100" y="165" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Enjoy Auto Control!</text>
+  <text x="100" y="180" font-size="9" fill="#64748b" text-anchor="middle">No more overflow</text>
+  <text x="100" y="193" font-size="9" fill="#22c55e" text-anchor="middle">✓ Save Water ✓ Save Electricity</text>
+</svg>
+

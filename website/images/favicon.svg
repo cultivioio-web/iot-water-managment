@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Water Drop -->
+  <path d="M16 2 C16 2 5 15 5 22 C5 29 10 31 16 31 C22 31 27 29 27 22 C27 15 16 2 16 2 Z" 
+        fill="url(#favGradient)"/>
+  
+  <!-- Leaf accent -->
+  <path d="M13 14 Q17 17 16 23 Q21 19 24 16 Q18 14 13 14" 
+        fill="#10b981" opacity="0.8"/>
+  
+  <!-- Wave -->
+  <path d="M8 24 Q12 21 16 24 Q20 27 24 24" 
+        stroke="white" stroke-width="1.5" fill="none" opacity="0.8"/>
+</svg>

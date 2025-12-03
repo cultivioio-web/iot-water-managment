@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- CULTIVIO Logo (Device Mark) Trademark Specimen -->
+  <!-- For IP India Trademark Filing - Class 09 -->
+  <!-- 8cm x 8cm at 300 DPI = 945px, but 400px is acceptable for online filing -->
+  <!-- Clean white background for official filing -->
+  
+  <rect x="0" y="0" width="400" height="400" fill="white"/>
+  
+  <defs>
+    <linearGradient id="brandGradientTM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="leafGradientTM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Centered Logo -->
+  <g transform="translate(100, 50)">
+    <!-- Water Drop Icon (Large) -->
+    <path d="M100 20 C100 20 40 100 40 140 C40 180 66 200 100 200 C134 200 160 180 160 140 C160 100 100 20 100 20 Z" 
+          fill="url(#brandGradientTM)" opacity="0.95"/>
+    
+    <!-- Leaf inside -->
+    <path d="M80 85 Q110 110 100 145 Q130 120 150 105 Q110 90 80 85" 
+          fill="url(#leafGradientTM)" opacity="0.85"/>
+    
+    <!-- Water waves -->
+    <path d="M55 150 Q77 135 100 150 Q123 165 145 150" 
+          stroke="white" stroke-width="5" fill="none" opacity="0.7"/>
+  </g>
+  
+  <!-- Company Name -->
+  <text x="200" y="300" 
+        font-family="Arial, Helvetica, sans-serif" 
+        font-size="48" 
+        font-weight="bold" 
+        fill="url(#brandGradientTM)"
+        text-anchor="middle">
+    Cultivio
+  </text>
+  
+  <!-- Tagline -->
+  <text x="200" y="335" 
+        font-family="Arial, Helvetica, sans-serif" 
+        font-size="14" 
+        fill="#64748b" 
+        letter-spacing="2"
+        text-anchor="middle">
+    SMART WATER MANAGEMENT
+  </text>
+  
+  <!-- Registration notice -->
+  <text x="200" y="385" 
+        font-family="Arial, sans-serif" 
+        font-size="10" 
+        fill="#94a3b8"
+        text-anchor="middle">
+    Device Mark - Class 09 - Color Claimed
+  </text>
+</svg>
+

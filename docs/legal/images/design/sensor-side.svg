@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <!-- Sensor Node Enclosure - SIDE VIEW -->
+  <!-- Design Registration Drawing - Line Art -->
+  
+  <rect x="0" y="0" width="300" height="400" fill="white"/>
+  
+  <!-- Title -->
+  <text x="150" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">SENSOR NODE - SIDE VIEW</text>
+  
+  <!-- Enclosure Side Face -->
+  <g transform="translate(75, 80)">
+    <!-- Main body outline -->
+    <rect x="0" y="0" width="150" height="220" rx="12" 
+          fill="none" stroke="#333" stroke-width="2"/>
+    
+    <!-- Top lid separation line -->
+    <line x1="0" y1="45" x2="150" y2="45" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Ventilation slots on side -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="60" height="4" rx="2" fill="none" stroke="#333" stroke-width="1"/>
+      <rect x="0" y="12" width="60" height="4" rx="2" fill="none" stroke="#333" stroke-width="1"/>
+      <rect x="0" y="24" width="60" height="4" rx="2" fill="none" stroke="#333" stroke-width="1"/>
+    </g>
+    
+    <!-- Wall mount slot -->
+    <ellipse cx="75" cy="150" rx="15" ry="8" fill="none" stroke="#333" stroke-width="1.5"/>
+    <text x="75" y="175" font-family="Arial" font-size="8" text-anchor="middle" fill="#666">MOUNT</text>
+    
+    <!-- Enclosure screw hole indicators -->
+    <circle cx="20" cy="200" r="4" fill="none" stroke="#333" stroke-width="1"/>
+    <circle cx="130" cy="200" r="4" fill="none" stroke="#333" stroke-width="1"/>
+  </g>
+  
+  <!-- View label -->
+  <text x="150" y="380" font-family="Arial" font-size="10" text-anchor="middle" fill="#999">Left Side View</text>
+</svg>
+

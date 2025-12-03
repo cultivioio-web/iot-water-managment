@@ -1,0 +1,138 @@
+/* ========================================
+   CSS Variables - Cultivio Design System
+   ======================================== */
+
+:root {
+    /* Colors - Primary Palette */
+    --color-primary: #0D9488;
+    --color-primary-light: #14B8A6;
+    --color-primary-dark: #0F766E;
+    --color-primary-50: #F0FDFA;
+    --color-primary-100: #CCFBF1;
+    --color-primary-200: #99F6E4;
+    
+    /* Colors - Secondary (Accent) */
+    --color-secondary: #6366F1;
+    --color-secondary-50: #EEF2FF;
+    --color-secondary-100: #E0E7FF;
+    --color-accent: #6366F1;
+    --color-accent-light: #818CF8;
+    --color-accent-dark: #4F46E5;
+    
+    /* Colors - Neutral */
+    --color-white: #FFFFFF;
+    --color-black: #0A0A0A;
+    --color-gray-50: #FAFAFA;
+    --color-gray-100: #F4F4F5;
+    --color-gray-200: #E4E4E7;
+    --color-gray-300: #D4D4D8;
+    --color-gray-400: #A1A1AA;
+    --color-gray-500: #71717A;
+    --color-gray-600: #52525B;
+    --color-gray-700: #3F3F46;
+    --color-gray-800: #27272A;
+    --color-gray-900: #18181B;
+    
+    /* Colors - Semantic */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-info: #3B82F6;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    --gradient-hero: linear-gradient(135deg, #0D9488 0%, #0891B2 50%, #6366F1 100%);
+    --gradient-dark: linear-gradient(180deg, var(--color-gray-900) 0%, var(--color-black) 100%);
+    --gradient-glow: radial-gradient(circle at center, var(--color-primary-100) 0%, transparent 70%);
+    
+    /* Typography */
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-glow: 0 0 40px rgba(13, 148, 136, 0.3);
+    --shadow-glow-lg: 0 0 80px rgba(13, 148, 136, 0.4);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+    --transition-slower: 500ms ease;
+    
+    /* Z-Index */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 400;
+    --z-modal: 500;
+    --z-tooltip: 600;
+    
+    /* Container */
+    --container-max: 1280px;
+    --container-padding: var(--space-6);
+}
+
+/* Dark Mode Variables (optional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Can override variables for dark mode */
+    }
+}
+

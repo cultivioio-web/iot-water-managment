@@ -1,0 +1,59 @@
+# Cultivio Website - Robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Disallow crawling of certain directories
+Disallow: /api/
+Disallow: /components/
+Disallow: */build/
+Disallow: */.git/
+
+# Sitemap location
+Sitemap: https://cultivio.in/sitemap.xml
+
+# Crawl delay (optional - helps with server load)
+# Crawl-delay: 1
+
+# Allow specific pages for better indexing
+Allow: /index.html
+Allow: /app/index.html
+Allow: /pages/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Disallow specific files
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Popular search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+

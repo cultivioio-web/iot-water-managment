@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultivio BLE Scanner Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0D9488 0%, #6366F1 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #0D9488;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p { color: #666; margin-bottom: 20px; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #0D9488, #6366F1);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .status.info { background: #E0F2FE; color: #0369A1; }
+        .status.success { background: #D1FAE5; color: #065F46; }
+        .status.error { background: #FEE2E2; color: #991B1B; }
+        .device-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .device {
+            padding: 12px;
+            background: #F3F4F6;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .device-name { font-weight: bold; color: #111; }
+        .device-id { font-size: 12px; color: #666; }
+        .checklist {
+            background: #FEF3C7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .checklist h3 { color: #92400E; margin-bottom: 10px; font-size: 14px; }
+        .checklist li { color: #78350F; margin-left: 20px; font-size: 13px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔵 Cultivio BLE Test</h1>
+        <p>Test if your ESP32 device is visible</p>
+        
+        <div class="checklist">
+            <h3>⚠️ Before scanning, check:</h3>
+            <ul>
+                <li>✅ Bluetooth is ON</li>
+                <li>✅ Location is ON (Android)</li>
+                <li>✅ Using Chrome browser</li>
+                <li>✅ ESP32 is powered (LED blinking)</li>
+            </ul>
+        </div>
+        
+        <button class="btn" id="scanBtn" onclick="scanDevices()">
+            🔍 Scan for Cultivio Devices
+        </button>
+        
+        <div id="status" class="status info">
+            Click the button to start scanning...
+        </div>
+        
+        <div id="deviceList" class="device-list"></div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const deviceListEl = document.getElementById('deviceList');
+        const scanBtn = document.getElementById('scanBtn');
+        
+        function setStatus(message, type) {
+            statusEl.textContent = message;
+            statusEl.className = 'status ' + type;
+        }
+        
+        async function scanDevices() {
+            // Check if Web Bluetooth is supported
+            if (!navigator.bluetooth) {
+                setStatus('❌ Web Bluetooth not supported! Use Chrome on Android or Bluefy on iPhone.', 'error');
+                return;
+            }
+            
+            scanBtn.disabled = true;
+            scanBtn.textContent = '🔄 Scanning...';
+            setStatus('Scanning for Bluetooth devices...', 'info');
+            deviceListEl.innerHTML = '';
+            
+            try {
+                // Request device with Cultivio prefix
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [
+                        { namePrefix: 'Cultivio' }
+                    ],
+                    optionalServices: [0x00FF]
+                });
+                
+                // Device found!
+                setStatus('✅ Device found! Click to connect.', 'success');
+                
+                deviceListEl.innerHTML = `
+                    <div class="device">
+                        <div class="device-name">📱 ${device.name}</div>
+                        <div class="device-id">ID: ${device.id}</div>
+                    </div>
+                `;
+                
+                // Try to connect
+                setStatus('Connecting to ' + device.name + '...', 'info');
+                const server = await device.gatt.connect();
+                
+                setStatus('✅ Connected to ' + device.name + '!', 'success');
+                
+                // Try to get service
+                try {
+                    const service = await server.getPrimaryService(0x00FF);
+                    setStatus('✅ Service found! Device is ready for provisioning.', 'success');
+                    
+                    deviceListEl.innerHTML += `
+                        <div class="device" style="background: #D1FAE5;">
+                            <div class="device-name">✅ Connection Successful!</div>
+                            <div class="device-id">You can now use the full provisioning app.</div>
+                        </div>
+                    `;
+                } catch (e) {
+                    setStatus('⚠️ Connected but service not found. Device may need restart.', 'error');
+                }
+                
+            } catch (error) {
+                if (error.name === 'NotFoundError') {
+                    setStatus('❌ No Cultivio devices found. Check if ESP32 is powered on.', 'error');
+                } else if (error.name === 'SecurityError') {
+                    setStatus('❌ Bluetooth permission denied. Allow in browser settings.', 'error');
+                } else {
+                    setStatus('❌ Error: ' + error.message, 'error');
+                }
+                console.error('Scan error:', error);
+            } finally {
+                scanBtn.disabled = false;
+                scanBtn.textContent = '🔍 Scan for Cultivio Devices';
+            }
+        }
+        
+        // Check Web Bluetooth support on load
+        window.onload = function() {
+            if (!navigator.bluetooth) {
+                setStatus('❌ Web Bluetooth NOT supported in this browser!', 'error');
+                deviceListEl.innerHTML = `
+                    <div class="device" style="background: #FEE2E2;">
+                        <div class="device-name">Browser Not Supported</div>
+                        <div class="device-id">
+                            <b>Android:</b> Use Chrome browser<br>
+                            <b>iPhone:</b> Use Bluefy app from App Store<br>
+                            <b>PC:</b> Use Chrome or Edge
+                        </div>
+                    </div>
+                `;
+            } else {
+                setStatus('✅ Web Bluetooth supported! Ready to scan.', 'success');
+            }
+        };
+    </script>
+</body>
+</html>
+

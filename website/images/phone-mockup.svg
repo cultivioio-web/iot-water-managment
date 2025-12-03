@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 550">
+  <!-- Phone Mockup with AquaSense App -->
+  <defs>
+    <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="waterLevelGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#0891b2"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <filter id="phoneShadow" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Phone body -->
+  <rect x="20" y="20" width="240" height="510" rx="36" fill="url(#phoneGrad)" filter="url(#phoneShadow)"/>
+  
+  <!-- Screen -->
+  <rect x="30" y="40" width="220" height="470" rx="28" fill="#f8fafc"/>
+  
+  <!-- Status bar -->
+  <rect x="30" y="40" width="220" height="35" rx="28" fill="url(#appGrad)"/>
+  <text x="140" y="62" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Cultivio AquaSense</text>
+  
+  <!-- Notch -->
+  <rect x="100" y="45" width="80" height="20" rx="10" fill="#1e293b"/>
+  
+  <!-- App Content -->
+  <g transform="translate(40, 85)">
+    <!-- Water Level Card -->
+    <rect x="0" y="0" width="200" height="180" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <!-- Title -->
+    <text x="100" y="25" font-size="12" fill="#64748b" text-anchor="middle">Water Level</text>
+    
+    <!-- Tank visualization -->
+    <rect x="60" y="40" width="80" height="100" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+    
+    <!-- Water in tank (75%) -->
+    <rect x="65" y="65" width="70" height="70" rx="5" fill="url(#waterLevelGrad)" opacity="0.8"/>
+    
+    <!-- Percentage -->
+    <text x="100" y="110" font-size="28" font-weight="bold" fill="white" text-anchor="middle">75%</text>
+    
+    <!-- Level indicator -->
+    <text x="100" y="160" font-size="11" fill="#22c55e" text-anchor="middle">● Tank Filling</text>
+  </g>
+  
+  <!-- Pump Status Card -->
+  <g transform="translate(40, 280)">
+    <rect x="0" y="0" width="200" height="80" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <text x="20" y="30" font-size="12" fill="#64748b">Pump Status</text>
+    
+    <!-- Status indicator -->
+    <rect x="20" y="45" width="80" height="25" rx="12" fill="#22c55e"/>
+    <text x="60" y="62" font-size="11" font-weight="bold" fill="white" text-anchor="middle">ON - AUTO</text>
+    
+    <!-- Time running -->
+    <text x="120" y="62" font-size="10" fill="#64748b">Running: 5m 23s</text>
+  </g>
+  
+  <!-- Quick Actions -->
+  <g transform="translate(40, 375)">
+    <rect x="0" y="0" width="200" height="60" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <!-- Manual Override Button -->
+    <rect x="15" y="12" width="80" height="36" rx="8" fill="url(#appGrad)"/>
+    <text x="55" y="35" font-size="10" fill="white" text-anchor="middle">Manual ON</text>
+    
+    <!-- Stop Button -->
+    <rect x="105" y="12" width="80" height="36" rx="8" fill="#ef4444" opacity="0.9"/>
+    <text x="145" y="35" font-size="10" fill="white" text-anchor="middle">Stop Pump</text>
+  </g>
+  
+  <!-- Connection Status -->
+  <g transform="translate(40, 445)">
+    <rect x="0" y="0" width="200" height="50" rx="12" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+    
+    <!-- Zigbee status -->
+    <circle cx="25" cy="25" r="8" fill="#22c55e"/>
+    <text x="45" y="22" font-size="10" fill="#166534">Zigbee Connected</text>
+    <text x="45" y="36" font-size="9" fill="#64748b">Signal: Excellent (-45 dBm)</text>
+  </g>
+  
+  <!-- Home indicator -->
+  <rect x="100" y="520" width="80" height="5" rx="2" fill="#374151"/>
+</svg>
+

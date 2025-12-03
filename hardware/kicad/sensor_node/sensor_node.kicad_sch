@@ -1,0 +1,33 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid "cultivio-sensor-node-schematic")
+
+  (paper "A4")
+
+  (title_block
+    (title "Cultivio AquaSense - Sensor Node")
+    (date "2025-12-03")
+    (rev "1.0")
+    (company "Cultivio Technologies")
+    (comment 1 "Water Level Sensor Node")
+    (comment 2 "ESP32-H2-MINI-1 + JSN-SR04T")
+  )
+
+  (lib_symbols
+    ; Symbol definitions would go here in actual KiCad file
+    ; This is a template structure
+  )
+
+  ; Sheet instances
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+
+  ; Text labels for schematic
+  (text "CULTIVIO AQUASENSE - SENSOR NODE\n\nMain Components:\n- U1: ESP32-H2-MINI-1 (Zigbee/BLE MCU)\n- U2: AMS1117-3.3 (3.3V LDO Regulator)\n- J1: USB-C Connector (Power Input)\n- J2: JST-XH 4P (Ultrasonic Sensor)\n\nPower:\n- Input: 5V via USB-C\n- MCU: 3.3V via AMS1117\n- Sensor: 5V direct\n\nGPIO Assignments:\n- GPIO0: Boot Button\n- GPIO4: Ultrasonic TRIG\n- GPIO5: Ultrasonic ECHO\n- GPIO8: LED Green (Status)\n- GPIO9: LED Red (Error)"
+    (at 20 30)
+    (effects (font (size 2 2)))
+  )
+
+)
+

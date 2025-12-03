@@ -1,0 +1,36 @@
+# Cultivio AquaSense - Unified Firmware Configuration
+# Supports Sensor, Controller, and Router roles
+
+# Zigbee configuration
+CONFIG_ZB_ENABLED=y
+CONFIG_ZB_ZCZR=y
+
+# Support all device types (Coordinator, Router, End Device)
+# The actual role is determined at runtime based on provisioning
+
+# Bluetooth configuration (for BLE provisioning and status)
+CONFIG_BT_ENABLED=y
+CONFIG_BT_BLUEDROID_ENABLED=y
+CONFIG_BT_GATTS_ENABLE=y
+CONFIG_BT_BLE_42_FEATURES_SUPPORTED=y
+
+# Partition table
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# NVS for storing device configuration
+CONFIG_NVS_ENCRYPTION=n
+
+# Stack sizes
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
+CONFIG_FREERTOS_TIMER_TASK_STACK_DEPTH=3072
+
+# Logging
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# IEEE 802.15.4 Radio
+CONFIG_IEEE802154_ENABLED=y
+
+# Optimize for size
+CONFIG_COMPILER_OPTIMIZATION_SIZE=y
+

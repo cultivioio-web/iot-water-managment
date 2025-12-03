@@ -1,0 +1,13 @@
+Comment,Designator,Footprint,LCSC Part #,Quantity
+"ESP32-H2-MINI-1 Module","U1","ESP32-H2-MINI-1","C2976052",1
+"AMS1117-3.3V LDO","U2","SOT-223","C6186",1
+"USB Type-C 16P Receptacle","J1","USB-C-SMD","C2765186",1
+"JST-XH 4P Connector","J2","JST-XH-4P","C144394",1
+"10uF 16V Capacitor","C1","0805","C15850",1
+"100nF Capacitor","C2,C3","0805","C49678",2
+"10uF 10V Capacitor","C4","0805","C15850",1
+"10K Resistor","R1","0805","C25744",1
+"330R Resistor","R2,R3","0805","C25198",2
+"LED Green 0805","LED1","0805","C2297",1
+"LED Red 0805","LED2","0805","C2286",1
+"Tactile Switch 6x6mm","SW1","SMD-6x6","C127509",1

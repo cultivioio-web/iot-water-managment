@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <!-- Sensor Node Enclosure - PERSPECTIVE VIEW -->
+  <!-- Design Registration Drawing - Line Art -->
+  
+  <rect x="0" y="0" width="300" height="400" fill="white"/>
+  
+  <!-- Title -->
+  <text x="150" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">SENSOR NODE - PERSPECTIVE VIEW</text>
+  
+  <!-- 3D Perspective Drawing -->
+  <g transform="translate(50, 70)">
+    <!-- Front face -->
+    <path d="M 30 80 L 30 280 L 170 280 L 170 80 Z" 
+          fill="none" stroke="#333" stroke-width="2"/>
+    
+    <!-- Top face (perspective) -->
+    <path d="M 30 80 L 80 40 L 220 40 L 170 80 Z" 
+          fill="none" stroke="#333" stroke-width="2"/>
+    
+    <!-- Right side face (perspective) -->
+    <path d="M 170 80 L 220 40 L 220 240 L 170 280 Z" 
+          fill="none" stroke="#333" stroke-width="2"/>
+    
+    <!-- Lid separation line -->
+    <path d="M 30 120 L 80 80 L 220 80" 
+          stroke="#333" stroke-width="1.5" fill="none"/>
+    <line x1="30" y1="120" x2="170" y2="120" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Ventilation slots on top -->
+    <path d="M 100 55 L 140 55" stroke="#333" stroke-width="2"/>
+    <path d="M 105 65 L 145 65" stroke="#333" stroke-width="2"/>
+    
+    <!-- LED indicators on front -->
+    <circle cx="60" cy="160" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+    <circle cx="85" cy="160" r="7" fill="none" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Branding area -->
+    <rect x="70" y="95" width="60" height="15" rx="2" 
+          fill="none" stroke="#333" stroke-width="1"/>
+    
+    <!-- Sensor connector on front -->
+    <rect x="110" y="145" width="40" height="25" rx="4" 
+          fill="none" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- USB-C on bottom front -->
+    <rect x="80" y="255" width="40" height="12" rx="3" 
+          fill="none" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Side ventilation -->
+    <path d="M 175 120 L 215 80" stroke="#333" stroke-width="1"/>
+    <path d="M 175 135 L 215 95" stroke="#333" stroke-width="1"/>
+    <path d="M 175 150 L 215 110" stroke="#333" stroke-width="1"/>
+  </g>
+  
+  <!-- View label -->
+  <text x="150" y="380" font-family="Arial" font-size="10" text-anchor="middle" fill="#999">Perspective View (Front-Top-Right)</text>
+</svg>
+

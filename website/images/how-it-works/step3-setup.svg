@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Step 3: Setup via App -->
+  <defs>
+    <linearGradient id="stepGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Step number -->
+  <circle cx="30" cy="30" r="20" fill="url(#stepGrad3)"/>
+  <text x="30" y="36" font-size="18" font-weight="bold" fill="white" text-anchor="middle">3</text>
+  
+  <!-- Phone -->
+  <rect x="70" y="40" width="60" height="110" rx="8" fill="#1e293b"/>
+  <rect x="75" y="50" width="50" height="90" rx="4" fill="#f8fafc"/>
+  
+  <!-- App screen content -->
+  <rect x="80" y="55" width="40" height="20" rx="2" fill="url(#stepGrad3)"/>
+  <text x="100" y="68" font-size="6" fill="white" text-anchor="middle">Setup</text>
+  
+  <!-- Settings items -->
+  <rect x="80" y="80" width="40" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="80" y="95" width="40" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="80" y="110" width="40" height="10" rx="2" fill="#22c55e"/>
+  <text x="100" y="118" font-size="5" fill="white" text-anchor="middle">SAVE</text>
+  
+  <!-- Home button -->
+  <circle cx="100" cy="145" r="4" fill="#374151"/>
+  
+  <!-- Bluetooth waves -->
+  <g transform="translate(140, 70)">
+    <path d="M0 10 Q10 5 0 0 M0 10 Q-10 5 0 0" stroke="#3b82f6" stroke-width="2" fill="none"/>
+    <path d="M0 10 L0 30" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+  
+  <!-- Label -->
+  <text x="100" y="175" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Setup via App</text>
+  <text x="100" y="190" font-size="9" fill="#64748b" text-anchor="middle">Configure thresholds</text>
+</svg>
+

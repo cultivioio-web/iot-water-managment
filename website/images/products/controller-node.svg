@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280">
+  <!-- Controller Node Product Illustration -->
+  <defs>
+    <linearGradient id="caseGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f1f5f9"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="pcbGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#047857"/>
+    </linearGradient>
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Enclosure Body -->
+  <rect x="25" y="40" width="170" height="130" rx="8" fill="url(#caseGradient2)" filter="url(#shadow2)"/>
+  
+  <!-- Top lid line -->
+  <line x1="25" y1="75" x2="195" y2="75" stroke="#cbd5e1" stroke-width="1"/>
+  
+  <!-- Ventilation slots -->
+  <g fill="#94a3b8">
+    <rect x="40" y="50" width="20" height="2" rx="1"/>
+    <rect x="65" y="50" width="20" height="2" rx="1"/>
+    <rect x="90" y="50" width="20" height="2" rx="1"/>
+    <rect x="115" y="50" width="20" height="2" rx="1"/>
+    <rect x="140" y="50" width="20" height="2" rx="1"/>
+  </g>
+  
+  <!-- PCB visible through case -->
+  <rect x="40" y="85" width="140" height="70" rx="3" fill="url(#pcbGradient2)" opacity="0.8"/>
+  
+  <!-- ESP32 chip -->
+  <rect x="55" y="95" width="30" height="20" rx="2" fill="#1e293b"/>
+  <text x="70" y="108" font-size="5" fill="#94a3b8" text-anchor="middle">ESP32</text>
+  
+  <!-- Relay -->
+  <rect x="100" y="90" width="35" height="30" rx="2" fill="#3b82f6"/>
+  <text x="117" y="108" font-size="6" fill="white" text-anchor="middle">RELAY</text>
+  
+  <!-- Status LEDs -->
+  <circle cx="50" cy="135" r="4" fill="#22c55e"/>
+  <circle cx="62" cy="135" r="4" fill="#3b82f6"/>
+  
+  <!-- Buzzer -->
+  <circle cx="155" y="135" r="8" fill="#1e293b"/>
+  <circle cx="155" cy="135" r="5" fill="#374151"/>
+  
+  <!-- USB-C Port -->
+  <rect x="95" y="165" width="30" height="8" rx="2" fill="#374151"/>
+  
+  <!-- Screw Terminals -->
+  <g transform="translate(145, 155)">
+    <rect x="0" y="0" width="40" height="15" rx="2" fill="#22c55e"/>
+    <text x="20" y="11" font-size="6" fill="white" text-anchor="middle">PUMP</text>
+  </g>
+  
+  <!-- Label -->
+  <text x="110" y="200" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Controller Node</text>
+  <text x="110" y="215" font-size="9" fill="#64748b" text-anchor="middle">Pump Control Unit</text>
+  
+  <!-- Cultivio branding on case -->
+  <text x="110" y="63" font-size="8" font-weight="bold" fill="#06b6d4" text-anchor="middle">CULTIVIO</text>
+  
+  <!-- Warning label -->
+  <g transform="translate(25, 225)">
+    <rect x="0" y="0" width="60" height="15" rx="2" fill="#fbbf24" opacity="0.2"/>
+    <text x="30" y="11" font-size="7" fill="#92400e" text-anchor="middle">⚡ 230V AC</text>
+  </g>
+</svg>
+

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- Hero Banner with Product Showcase -->
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="50%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="heroAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="waterGradH" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4" stop-opacity="0.3"/>
+      <stop offset="100%" style="stop-color:#0891b2" stop-opacity="0.6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="600" fill="url(#heroBg)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="200" fill="url(#heroAccent)" opacity="0.05"/>
+  <circle cx="1100" cy="500" r="300" fill="url(#heroAccent)" opacity="0.05"/>
+  <circle cx="600" cy="300" r="400" fill="url(#heroAccent)" opacity="0.03"/>
+  
+  <!-- Grid pattern -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.3">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="600" y1="0" x2="600" y2="600"/>
+    <line x1="800" y1="0" x2="800" y2="600"/>
+    <line x1="1000" y1="0" x2="1000" y2="600"/>
+  </g>
+  
+  <!-- Product showcase area -->
+  <g transform="translate(700, 80)">
+    <!-- Tank illustration -->
+    <rect x="100" y="80" width="180" height="280" rx="10" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+    <rect x="110" y="150" width="160" height="200" rx="8" fill="url(#waterGradH)"/>
+    
+    <!-- Sensor node on tank -->
+    <rect x="200" y="60" width="60" height="40" rx="5" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="230" y="85" font-size="8" font-weight="bold" fill="#06b6d4" text-anchor="middle">SENSOR</text>
+    <rect x="220" y="100" width="20" height="50" rx="3" fill="#374151"/>
+    
+    <!-- Controller node -->
+    <rect x="0" y="200" width="80" height="60" rx="5" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="40" y="225" font-size="8" font-weight="bold" fill="#06b6d4" text-anchor="middle">CONTROLLER</text>
+    <rect x="50" y="240" width="25" height="12" rx="2" fill="#3b82f6"/>
+    
+    <!-- Pump -->
+    <ellipse cx="40" cy="340" rx="35" ry="15" fill="#4b5563"/>
+    <rect x="5" y="320" width="70" height="20" rx="3" fill="#374151"/>
+    <text x="40" y="370" font-size="9" fill="#64748b" text-anchor="middle">PUMP</text>
+    
+    <!-- Zigbee waves -->
+    <g stroke="url(#heroAccent)" stroke-width="2" fill="none" filter="url(#glow)">
+      <path d="M85 230 Q120 200 155 230" opacity="0.8"/>
+      <path d="M85 230 Q130 190 175 230" opacity="0.5"/>
+    </g>
+    
+    <!-- Wire from controller to pump -->
+    <line x1="40" y1="260" x2="40" y2="320" stroke="#ef4444" stroke-width="2"/>
+  </g>
+  
+  <!-- Text content -->
+  <g transform="translate(80, 150)">
+    <text x="0" y="0" font-size="16" fill="#06b6d4" font-weight="bold" letter-spacing="3">SMART WATER MANAGEMENT</text>
+    
+    <text x="0" y="60" font-size="56" fill="white" font-weight="bold">Never Overflow</text>
+    <text x="0" y="120" font-size="56" fill="url(#heroAccent)" font-weight="bold">Your Tank Again</text>
+    
+    <text x="0" y="180" font-size="18" fill="#94a3b8">Automatic pump control • No WiFi needed • Mobile app</text>
+    
+    <!-- CTA Buttons -->
+    <g transform="translate(0, 220)">
+      <rect x="0" y="0" width="180" height="50" rx="25" fill="url(#heroAccent)"/>
+      <text x="90" y="32" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Shop Now ₹2,999</text>
+      
+      <rect x="200" y="0" width="180" height="50" rx="25" fill="transparent" stroke="#64748b" stroke-width="2"/>
+      <text x="290" y="32" font-size="16" fill="#94a3b8" text-anchor="middle">Watch Demo →</text>
+    </g>
+    
+    <!-- Trust badges -->
+    <g transform="translate(0, 300)">
+      <text x="0" y="0" font-size="12" fill="#64748b">✓ 6 Month Warranty</text>
+      <text x="150" y="0" font-size="12" fill="#64748b">✓ Made in India</text>
+      <text x="300" y="0" font-size="12" fill="#64748b">✓ Easy Setup</text>
+    </g>
+  </g>
+  
+  <!-- Cultivio Logo -->
+  <g transform="translate(80, 40)">
+    <path d="M25 5 C25 5 10 20 10 28 C10 36 16 40 25 40 C34 40 40 36 40 28 C40 20 25 5 25 5 Z" fill="url(#heroAccent)"/>
+    <text x="55" y="30" font-size="24" font-weight="bold" fill="white">Cultivio</text>
+  </g>
+</svg>
+
