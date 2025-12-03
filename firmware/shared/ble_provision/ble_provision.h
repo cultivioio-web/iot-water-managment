@@ -33,7 +33,6 @@ typedef enum {
  * ============================================================================ */
 
 // Default password for new devices (user should change this!)
-#define DEFAULT_DEVICE_PASSWORD     "1234"
 #define MAX_PASSWORD_LENGTH         16
 #define MAX_CUSTOM_NAME_LENGTH      20  // "Cultivio-" + custom name
 
@@ -48,6 +47,7 @@ typedef struct {
     char password[MAX_PASSWORD_LENGTH];       // BLE connection password
     char location[32];                        // e.g., "Building A, 3rd Floor"
     bool password_enabled;                    // Require password to connect?
+    bool password_change_required;  // Set to true on first boot to force change
     prov_node_type_t node_type;
     
     // Tank configuration (for sensor node)

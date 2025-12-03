@@ -325,9 +325,12 @@ static void parse_config_data(const uint8_t *data, uint16_t len) {
                 
                 if (written >= sizeof(g_device_config.device_name)) {
                     ESP_LOGE(TAG, "Device name too long after prefix! Truncating.");
-                    // Truncate custom name to fit
                     size_t max_custom = sizeof(g_device_config.device_name) - strlen(DEVICE_NAME_PREFIX) - 1;
-                    g_device_config.custom_name[max_custom] = '\0';
+                    if (max_custom < sizeof(g_device_config.custom_name)) {
+                        g_device_config.custom_name[max_custom] = '\0';
+                    } else {
+                        g_device_config.custom_name[sizeof(g_device_config.custom_name) - 1] = '\0';
+                    }
                 }
                 
                 // Update BLE device name immediately
@@ -348,7 +351,13 @@ static void parse_config_data(const uint8_t *data, uint16_t len) {
                     g_device_config.password[pwd_len] = '\0';
                     g_device_config.password_enabled = true;
                     
-                    ESP_LOGI(TAG, "Password set (length: %d)", pwd_len);
+                    // If this is first setup, mark as changed
+                    if (g_device_config.password_change_required) {
+                        g_device_config.password_change_required = false;
+                        ESP_LOGI(TAG, "First password change completed - security enhanced!");
+                    }
+                    
+                    ESP_LOGI(TAG, "Password updated (length: %d)", pwd_len);
                 } else if (pwd_len == 0) {
                     // Disable password
                     g_device_config.password_enabled = false;
@@ -409,7 +418,8 @@ static void prepare_status_response(uint8_t *data, uint16_t *len) {
         data[7] = (g_device_config.zigbee_pan_id >> 8) & 0xFF;
         data[8] = g_device_config.zigbee_pan_id & 0xFF;
         data[9] = g_device_config.zigbee_channel;
-        *len = 10;
+        data[10] = g_device_config.password_change_required ? 1 : 0;
+        *len = 11;
         xSemaphoreGive(g_config_mutex);
     } else {
         ESP_LOGW(TAG, "Could not acquire mutex for status response");
@@ -614,9 +624,14 @@ esp_err_t ble_provision_init(prov_node_type_t node_type) {
     g_device_config.report_interval_sec = 5;
     g_device_config.provisioned = false;
     
-    // Set default password
-    strncpy(g_device_config.password, DEFAULT_DEVICE_PASSWORD, MAX_PASSWORD_LENGTH - 1);
-    g_device_config.password_enabled = false;  // Disabled by default, user can enable
+    // Generate unique default password from MAC (SEC #1)
+    uint8_t mac[6];
+    esp_read_mac(mac, ESP_MAC_BT);
+    snprintf(g_device_config.password, MAX_PASSWORD_LENGTH, "%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3]);
+    g_device_config.password_enabled = true;  // Enable by default with generated password
+    g_device_config.password_change_required = true;  // Always require change on first setup, even if provisioned, but only if not already changed
+
+    ESP_LOGI(TAG, "Generated unique default password: %s (change recommended)", g_device_config.password);
     
     // Custom name empty by default (will use MAC-based name)
     g_device_config.custom_name[0] = '\0';
@@ -637,7 +652,7 @@ esp_err_t ble_provision_init(prov_node_type_t node_type) {
     }
     
     ESP_LOGI(TAG, "BLE Provisioning initialized");
-    ESP_LOGI(TAG, "Default password: %s (change after setup!)", DEFAULT_DEVICE_PASSWORD);
+    ESP_LOGI(TAG, "Default password: %s (change after setup!)", g_device_config.password);
     
     return ESP_OK;
 }

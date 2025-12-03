@@ -517,6 +517,10 @@ static esp_err_t zb_action_handler(esp_zb_core_action_callback_id_t callback_id,
                 else if (msg->attribute.id == ATTR_WATER_LEVEL_CM) {
                     g_water_level_cm = *(uint16_t *)msg->attribute.data.value;
                 }
+                else if (msg->attribute.id == ATTR_SENSOR_STATUS) {
+                    g_sensor_status = *(uint8_t *)msg->attribute.data.value;
+                    ESP_LOGD(TAG, "Sensor status updated: %d", g_sensor_status);
+                }
             }
             break;
         }
@@ -683,7 +687,10 @@ static void zigbee_task(void *pvParameters)
     esp_zb_device_register(ep_list);
 
     esp_zb_core_action_handler_register(zb_action_handler);
-    esp_zb_set_channel_mask(ESP_ZB_TRANSCEIVER_ALL_CHANNELS_MASK);
+    esp_err_t ret_channel = esp_zb_set_channel_mask(ESP_ZB_TRANSCEIVER_ALL_CHANNELS_MASK);
+    if (ret_channel != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to set channel mask: %s", esp_err_to_name(ret_channel));
+    }
 
     ESP_LOGI(TAG, "Starting Zigbee stack...");
     ESP_ERROR_CHECK(esp_zb_start(false));
@@ -703,6 +710,18 @@ static void sensor_task(void *pvParameters)
             measure_water_level();
             send_water_level_report();
             
+            esp_zb_lock_acquire(portMAX_DELAY);
+            esp_zb_zcl_set_attribute_val(DEVICE_ENDPOINT, CLUSTER_WATER_LEVEL,
+                ESP_ZB_ZCL_CLUSTER_SERVER_ROLE, ATTR_WATER_LEVEL_PCT, 
+                &g_water_level_percent, false);
+            esp_zb_zcl_set_attribute_val(DEVICE_ENDPOINT, CLUSTER_WATER_LEVEL,
+                ESP_ZB_ZCL_CLUSTER_SERVER_ROLE, ATTR_WATER_LEVEL_CM, 
+                &g_water_level_cm, false);
+            esp_zb_zcl_set_attribute_val(DEVICE_ENDPOINT, CLUSTER_WATER_LEVEL,
+                ESP_ZB_ZCL_CLUSTER_SERVER_ROLE, ATTR_SENSOR_STATUS, 
+                &g_sensor_status, false);
+            esp_zb_lock_release();
+
             device_status_t status = {
                 .node_type = NODE_TYPE_SENSOR,
                 .zigbee_connected = g_zigbee_connected,
@@ -927,7 +946,11 @@ void app_main(void)
 
     // FIX: BUG #10 - Configure watchdog timer (30 seconds)
     ESP_LOGI(TAG, "Configuring watchdog timer...");
-    ret = esp_task_wdt_init(30, true);  // 30 second timeout, panic on timeout
+    esp_task_wdt_config_t wdt_config = {
+        .timeout_ms = 30000,
+        .trigger_panic = true,
+    };
+    ret = esp_task_wdt_init(&wdt_config);
     if (ret == ESP_OK) {
         esp_task_wdt_add(NULL);  // Add current task to watchdog
         ESP_LOGI(TAG, "Watchdog timer configured: 30 seconds");
